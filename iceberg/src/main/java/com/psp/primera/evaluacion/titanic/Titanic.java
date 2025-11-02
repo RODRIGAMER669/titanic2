@@ -64,7 +64,7 @@ public class Titanic {
         }
     }
 
-    private static int[] parsearSalida(String linea) {
+    public static int[] parsearSalida(String linea) {
         try {
             linea = linea.replace(LLAVE_ABIERTA, ESPACIO).replace(LLAVE_CERRADA, ESPACIO).trim();
             String[] partes = linea.split(COMA);

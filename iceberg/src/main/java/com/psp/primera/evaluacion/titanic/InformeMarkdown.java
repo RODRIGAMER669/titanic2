@@ -48,9 +48,9 @@ public class InformeMarkdown implements GeneradorInforme {
 
                 writer.write(String.format(TXT_IDBOTE, i));
                 writer.write(String.format(TXT_TOTAL_SALVADOS, total));
-                writer.write(String.format(TXT_FORMATO, CATEGORIAS[1], mujeres));
-                writer.write(String.format(TXT_FORMATO, CATEGORIAS[0], varones));
-                writer.write(String.format(TXT_FORMATO, CATEGORIAS[2], ninos));
+                escribir(writer, TXT_FORMATO, CATEGORIAS[1], mujeres);
+                escribir(writer, TXT_FORMATO, CATEGORIAS[0], varones);
+                escribir(writer, TXT_FORMATO, CATEGORIAS[2], ninos);
                 writer.write(TXT_SALTO_LINEA);
 
                 totalMujeres += mujeres;
@@ -62,9 +62,9 @@ public class InformeMarkdown implements GeneradorInforme {
 
             writer.write(TXT_TOTAL);
             writer.write(String.format(TXT_TOTAL_SALVADOS, totalSalvados));
-            writer.write(String.format(TXT_FORMATO, CATEGORIAS[1], totalMujeres));
-            writer.write(String.format(TXT_FORMATO, CATEGORIAS[0], totalVarones));
-            writer.write(String.format(TXT_FORMATO, CATEGORIAS[2], totalNinos));
+            escribir(writer, TXT_FORMATO, CATEGORIAS[1], totalMujeres);
+            escribir(writer, TXT_FORMATO, CATEGORIAS[0], totalVarones);
+            escribir(writer, TXT_FORMATO, CATEGORIAS[2], totalNinos);
             writer.write(TXT_SALTO_LINEA);
 
             System.out.println(TXT_EXITO);
@@ -72,5 +72,10 @@ public class InformeMarkdown implements GeneradorInforme {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    public void escribir(BufferedWriter writer, String texto, String categoria, int cantidad) throws IOException {
+        writer.write(String.format(texto, categoria, cantidad));
+
     }
 }
