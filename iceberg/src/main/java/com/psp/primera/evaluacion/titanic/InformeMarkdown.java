@@ -9,20 +9,34 @@ import java.util.List;
 
 public class InformeMarkdown implements GeneradorInforme {
 
+    // Constantes para evitar hardcode
+    private static final String NOMBRE_ARCHIVO = "Informe.md";
+    private static final String FORMATO_FECHA = "dd/MM/yyyy";
+    private static final String FORMATO_HORA = "HH:mm:ss";
+    private static final String ENCABEZADO = "# SERVICIO DE EMERGENCIAS\n\n";
+    private static final String TXT_EJECUCION = "Ejecución realizada el día %s a las %s\n\n";
+    private static final String[] CATEGORIAS = {"Varones", "Mujeres", "Niños"};
+    private static final String TXT_EXITO = "Informe generado correctamente.";
+    private static final String TXT_TOTAL = "## Total\n";
+    private static final String TXT_TOTAL_SALVADOS = "- Total Salvados %d\n";
+    private static final String TXT_FORMATO = "  - %s %d\n";
+    private static final String TXT_SALTO_LINEA = "\n";
+    private static final String TXT_IDBOTE = "## Bote B%02d\n\n";
+
     @Override
     public void generarInforme(List<int[]> datosBotes) {
-        DateTimeFormatter fecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter hora = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter fecha = DateTimeFormatter.ofPattern(FORMATO_FECHA);
+        DateTimeFormatter hora = DateTimeFormatter.ofPattern(FORMATO_HORA);
         LocalDateTime ahora = LocalDateTime.now();
 
         int totalMujeres = 0;
         int totalVarones = 0;
         int totalNinos = 0;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Informe.md"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO))) {
 
-            writer.write("# SERVICIO DE EMERGENCIAS\n\n");
-            writer.write(String.format("Ejecución realizada el día %s a las %s\n\n",
+            writer.write(ENCABEZADO);
+            writer.write(String.format(TXT_EJECUCION,
                     fecha.format(ahora), hora.format(ahora)));
 
             for (int i = 0; i < datosBotes.size(); i++) {
@@ -32,11 +46,12 @@ public class InformeMarkdown implements GeneradorInforme {
                 int ninos = datos[2];
                 int total = datos[3];
 
-                writer.write(String.format("## Bote B%02d\n\n", i));
-                writer.write(String.format("- Total Salvados %d\n", total));
-                writer.write(String.format("  - Mujeres %d\n", mujeres));
-                writer.write(String.format("  - Varones %d\n", varones));
-                writer.write(String.format("  - Niños %d\n\n", ninos));
+                writer.write(String.format(TXT_IDBOTE, i));
+                writer.write(String.format(TXT_TOTAL_SALVADOS, total));
+                writer.write(String.format(TXT_FORMATO, CATEGORIAS[1], mujeres));
+                writer.write(String.format(TXT_FORMATO, CATEGORIAS[0], varones));
+                writer.write(String.format(TXT_FORMATO, CATEGORIAS[2], ninos));
+                writer.write(TXT_SALTO_LINEA);
 
                 totalMujeres += mujeres;
                 totalVarones += varones;
@@ -45,17 +60,17 @@ public class InformeMarkdown implements GeneradorInforme {
 
             int totalSalvados = totalMujeres + totalVarones + totalNinos;
 
-            writer.write("## Total\n");
-            writer.write(String.format("- Total Salvados %d\n", totalSalvados));
-            writer.write(String.format("  - Mujeres %d\n", totalMujeres));
-            writer.write(String.format("  - Varones %d\n", totalVarones));
-            writer.write(String.format("  - Niños %d\n", totalNinos));
-            writer.write("\n");
+            writer.write(TXT_TOTAL);
+            writer.write(String.format(TXT_TOTAL_SALVADOS, totalSalvados));
+            writer.write(String.format(TXT_FORMATO, CATEGORIAS[1], totalMujeres));
+            writer.write(String.format(TXT_FORMATO, CATEGORIAS[0], totalVarones));
+            writer.write(String.format(TXT_FORMATO, CATEGORIAS[2], totalNinos));
+            writer.write(TXT_SALTO_LINEA);
 
-            System.out.println("✅ Informe.md generado correctamente.");
+            System.out.println(TXT_EXITO);
 
         } catch (IOException e) {
-            System.err.println("Error al generar el informe: " + e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 }

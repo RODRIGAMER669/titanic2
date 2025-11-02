@@ -15,6 +15,11 @@ public class Titanic {
         "iceberg/target/classes",
         "com.psp.primera.evaluacion.titanic.Botes"
     };
+    public static final String ESPACIO = "";
+    public static final String COMA = ",";
+    public static final String LLAVE_ABIERTA = "[";
+    public static final String LLAVE_CERRADA = "]";
+    public static final String TXT_BOTES = "B%02d desplegado.\n";
 
     public static void main(String[] args) {
         List<int[]> resultados = new ArrayList<>();
@@ -27,6 +32,7 @@ public class Titanic {
                     resultados.add(datos);
                 }
             }
+            System.out.printf(TXT_BOTES, i);
         }
 
         // Usando la interfaz
@@ -50,25 +56,25 @@ public class Titanic {
             int exitVal = process.waitFor();
             Thread.sleep(2000 + new Random().nextInt(4001));
 
-            return (exitVal == 0) ? output.toString() : "";
+            return (exitVal == 0) ? output.toString() : ESPACIO;
 
         } catch (IOException | InterruptedException e) {
-            System.err.println("Error: " + e.getMessage());
-            return "";
+            System.err.println(e.getMessage());
+            return ESPACIO;
         }
     }
 
     private static int[] parsearSalida(String linea) {
         try {
-            linea = linea.replace("[", "").replace("]", "").trim();
-            String[] partes = linea.split(",");
+            linea = linea.replace(LLAVE_ABIERTA, ESPACIO).replace(LLAVE_CERRADA, ESPACIO).trim();
+            String[] partes = linea.split(COMA);
             int[] nums = new int[4];
             for (int i = 0; i < partes.length; i++) {
                 nums[i] = Integer.parseInt(partes[i].trim());
             }
             return nums;
         } catch (Exception e) {
-            System.err.println("Error al parsear línea: " + linea);
+            System.err.println(e.getMessage());
             return null;
         }
     }
