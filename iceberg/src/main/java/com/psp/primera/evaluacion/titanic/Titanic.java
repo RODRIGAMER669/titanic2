@@ -3,6 +3,8 @@ package com.psp.primera.evaluacion.titanic;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Titanic {
@@ -14,48 +16,60 @@ public class Titanic {
         "com.psp.primera.evaluacion.titanic.Botes"
     };
 
-    public static final String MSG_ERROR = "Se ha producido un error al ejecutar el comando";
-
     public static void main(String[] args) {
+        List<int[]> resultados = new ArrayList<>();
+
         for (int i = 0; i < 20; i++) {
-            String tripulantes = desplegar(COMANDOS);
-            System.out.print(tripulantes);
+            String salida = ejecutarBote(COMANDOS);
+            if (salida != null && !salida.isBlank()) {
+                int[] datos = parsearSalida(salida);
+                if (datos != null) {
+                    resultados.add(datos);
+                }
+            }
         }
+
+        // Usando la interfaz
+        GeneradorInforme generador = new InformeMarkdown();
+        generador.generarInforme(resultados);
     }
 
-    public static String desplegar(String[] comandos) {
+    private static String ejecutarBote(String[] comandos) {
         StringBuilder output = new StringBuilder();
-        Random random = new Random();
-
         try {
             Process process = Runtime.getRuntime().exec(comandos);
-
-            // Leer salida estándar
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(process.getInputStream())
             );
 
             String line;
             while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
+                output.append(line);
             }
 
             int exitVal = process.waitFor();
+            Thread.sleep(2000 + new Random().nextInt(4001));
 
-            // Espera aleatoria entre 2 y 6 segundos
-            int espera = 2000 + random.nextInt(4001);
-            Thread.sleep(espera);
-
-            if (exitVal == 0) {
-                return output.toString();
-            } else {
-                System.err.println(MSG_ERROR);
-                return "";
-            }
+            return (exitVal == 0) ? output.toString() : "";
 
         } catch (IOException | InterruptedException e) {
             System.err.println("Error: " + e.getMessage());
             return "";
+        }
+    }
+
+    private static int[] parsearSalida(String linea) {
+        try {
+            linea = linea.replace("[", "").replace("]", "").trim();
+            String[] partes = linea.split(",");
+            int[] nums = new int[4];
+            for (int i = 0; i < partes.length; i++) {
+                nums[i] = Integer.parseInt(partes[i].trim());
+            }
+            return nums;
+        } catch (Exception e) {
+            System.err.println("Error al parsear línea: " + linea);
+            return null;
         }
     }
 }
