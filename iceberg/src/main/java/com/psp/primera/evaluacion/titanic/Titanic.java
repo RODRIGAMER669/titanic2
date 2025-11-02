@@ -10,7 +10,7 @@ public class Titanic {
     public static final String[] COMANDOS = {
         "java",
         "-cp",
-        "/home/debian/2ºDAM/PSP/Titanic2/iceberg/target/classes",
+        "iceberg/target/classes",
         "com.psp.primera.evaluacion.titanic.Botes"
     };
 

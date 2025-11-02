@@ -6,12 +6,12 @@ import java.util.Random;
 public class Botes {
 
     public static void main(String[] args) {
-        int[] poblacion = generarPoblacion();
+        int[] personas = generarPersonas();
 
-        System.out.println(Arrays.toString(poblacion));
+        System.out.println(Arrays.toString(personas));
     }
 
-    public static int[] generarPoblacion() {
+    public static int[] generarPersonas() {
         Random r = new Random();
 
         int totalPersonas = r.nextInt(100) + 1;
