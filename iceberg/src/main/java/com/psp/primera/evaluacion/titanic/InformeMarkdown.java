@@ -9,7 +9,6 @@ import java.util.List;
 
 public class InformeMarkdown implements GeneradorInforme {
 
-    // Constantes para evitar hardcode
     private static final String NOMBRE_ARCHIVO = "Informe.md";
     private static final String FORMATO_FECHA = "dd/MM/yyyy";
     private static final String FORMATO_HORA = "HH:mm:ss";
