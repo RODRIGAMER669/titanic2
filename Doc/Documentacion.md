@@ -19,12 +19,20 @@ Se han lanzado 20 botes salvavidas del Titanic con el fin de salvar gente pero s
 ## 2. Diseño de la solución
 ### Arquitectura:
 Generar un informe con los datos enviados de cada bote clasificándolos en varones mujeres y niños sacando un total por bote y general
+<p align="center">
+<img src="imagenes/diagramaBolas.jpg" alt="Diagrama de bolas" width="400">
+</p>
+
 ### Componentes:
 Emplearemos una clase Titanic para desplegar los 20 botes y recoger su información. Los botes generarán aleatoriamente tres números procurando que la suma no pase de 100 (Esto mediante restar los números nuevos con los que ya hayan salido). Después el Titanic generará un informe en markdown con los datos recibidos dando el total de cada bote y un total general de todo
+<p align="center">
+<img src="imagenes/diseñoCajas.jpeg" alt="Diagrama de cajas" width="400">
+</p>
+
 ### Protocolo de comunicación:
 El Ttitanic recibe cierta información de los botes en forma de array. Esta información es el número de varones, mujeres y niños que hay por bote la cual luego puede clasificar y escribir
 ### Plan de pruebas:
-
+El objetivo de las pruebas hechas es que se pueda testear el proyecto sin necesidad de ejecutarlo para ver que todo funciona. Nuestras pruebas concretamente, vigilan que cuando se genera el informe lo haga con los datos correctos, que el Titanic ejecute Botes correctamente y estos devuelvan los números bien y que el Titanic parsee los datos correctamente
 ## 3. Manual de usuario
 ### Requisitos:
 - Tener instalado el JDK
