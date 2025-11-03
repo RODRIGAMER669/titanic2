@@ -19,7 +19,6 @@ class TitanicMockTest {
         Runtime runtimeMock = mock(Runtime.class);
         BufferedReader readerMock = mock(BufferedReader.class);
 
-        // Simulamos el comportamiento
         when(runtimeMock.exec(any(String[].class))).thenReturn(processMock);
         when(processMock.getInputStream()).thenReturn(new ByteArrayInputStream("[1,2,3,4]".getBytes()));
         when(processMock.waitFor()).thenReturn(0);
@@ -29,7 +28,6 @@ class TitanicMockTest {
         assertEquals("[1,2,3,4]", salida);
     }
 
-    // Método alternativo para permitir inyectar el Runtime
     private String ejecutarBoteMock(String[] comandos, Runtime runtime) {
         StringBuilder output = new StringBuilder();
         try {
