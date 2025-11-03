@@ -20,6 +20,8 @@ public class Titanic {
     public static final String LLAVE_ABIERTA = "[";
     public static final String LLAVE_CERRADA = "]";
     public static final String TXT_BOTES = "B%02d desplegado.\n";
+    public static final int COOLDOWN_MIN = 2000;
+    public static final int COOLDOWN_AGREGADO = 4001;
 
     public static void main(String[] args) {
         List<int[]> resultados = new ArrayList<>();
@@ -35,7 +37,6 @@ public class Titanic {
             System.out.printf(TXT_BOTES, i);
         }
 
-        // Usando la interfaz
         GeneradorInforme generador = new InformeMarkdown();
         generador.generarInforme(resultados);
     }
@@ -54,7 +55,7 @@ public class Titanic {
             }
 
             int exitVal = process.waitFor();
-            Thread.sleep(2000 + new Random().nextInt(4001));
+            Thread.sleep(COOLDOWN_MIN + new Random().nextInt(COOLDOWN_AGREGADO));
 
             return (exitVal == 0) ? output.toString() : ESPACIO;
 

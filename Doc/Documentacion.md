@@ -38,6 +38,9 @@ El Ttitanic recibe cierta información de los botes en forma de array. Esta info
     1. Dirígete a la carpeta del proyecto
     2. Compila el programa con ```javac Titanic.java```
     3. Ejecuta el programa con ```java Titanic```
+### Cómo ejecutar los test:
+- En la cmd:
+    1. Compila todo el proyecto
 ### Qúe debería pasar:
 - Comprueba que te aparece que los botes se están desplegando
 - Una vez se hayan desplegado los 20 botes, comprueba que se te haya generado un informe
