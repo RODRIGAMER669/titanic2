@@ -38,13 +38,18 @@ El Ttitanic recibe cierta información de los botes en forma de array. Esta info
     1. Dirígete a la carpeta del proyecto
     2. Compila el programa con ```javac Titanic.java```
     3. Ejecuta el programa con ```java Titanic```
-### Cómo ejecutar los test:
-- En la cmd:
-    1. Compila todo el proyecto
 ### Qúe debería pasar:
 - Comprueba que te aparece que los botes se están desplegando
 - Una vez se hayan desplegado los 20 botes, comprueba que se te haya generado un informe
 - Dicho informe tendrá que tener el número de supervivientes por bote y su clasificación y al final del informe el número total de supervivientes.
+### Cómo ejecutar los test:
+- En la cmd:
+    1. Compila todo el proyecto
+    2. Ejecuta los archivos ``InformeMarkdownTest.java``,``TitanicMockTest.java`` y ``TitanicTest.java``
+- En el entorno de desarrollo:
+    1. Vete a la pestaña de Testing a la izquierda de la pantalla
+    2. Te apareceran los diferentes test del proyecto
+    3. Ejecuta cada uno pulsando el botón de play
 ## 4. Elementos destacables del desarrollo
 - Para que el Titanic usara bien la información recibida de los botes la hemos tenido que parsear con un método
 - Para poder escribir las IDs de los botes hemos usado el formato en una constante TXT_BOTES
